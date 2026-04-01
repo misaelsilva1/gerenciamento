@@ -1,19 +1,24 @@
-#include <stdio.h>
 #include "task_manager.h"
+#include <stdio.h>
 
 int main() {
-    TaskManager manager = create_task_manager();
+    TaskManager *tm = create_task_manager();
 
-    add_task(&manager, 1, "Adicionar tarefas", 2, "2026-04-01");
-    add_task(&manager, 2, "Enviar email", 1, "2026-04-02");
+    // Adicionando tarefas iniciais
+    add_task(tm, "Adicionar tarefas", 1, "2026-03-30");
+    add_task(tm, "Gerenciar Tarefas", 2, "2026-03-31");
 
-    update_task_name(&manager, 1, "Atualizar tarefas");
-    update_task_priority(&manager, 2, 3);
-    update_date(&manager, 1, "2026-04-03");
+    printf("--- Lista Original ---\n");
+    list_tasks(tm);
 
-    list_tasks(&manager);
+    // Testando suas novas funções de atualização
+    update_task_name(tm, 0, "Analisar Tarefas");
+    update_task_priority(tm, 1, 2); // Mudando prioridade das tarefas
+    update_date(tm, 0, "2026-04-05");
 
-    free_task_manager(&manager);
+    printf("\n--- Lista Atualizada ---\n");
+    list_tasks(tm);
 
+    free_task_manager(tm);
     return 0;
 }
